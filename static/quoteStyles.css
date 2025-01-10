@@ -1,0 +1,33 @@
+body {
+    background-color: rgb(38, 38, 38);
+    color: white;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+img {
+    max-width: 50%;
+    height: auto;
+    margin: 1em 0;
+    border: 1px solid #2980b9;
+    border-radius: 10px;
+}
+
+h1 {
+    color: #2980b9;
+    font-size: 2em;
+}
+
+h4 {
+    color: #2980b9;
+}
+
+p {
+    font-size: 1.2em;
+    color: white;
+}
+
+a {
+    color: white;
+}

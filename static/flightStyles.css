@@ -1,0 +1,552 @@
+/* flights/static/flights/styles.css */
+/* Author: Kevin Tan (ktan03@bu.edu) */
+/* Description: CSS for flights app */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    color: black;
+    text-align: center;
+}
+
+/* Title styling */
+h1 {
+    font-size: 48px; /* Make the title larger */
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.container {
+    max-width: 1500px;
+    margin: 10px auto;
+    padding: 20px;
+}
+
+/* Flight styling */
+.flight {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.flight:last-child {
+    border-bottom: none;
+}
+
+.flight h3 {
+    margin: 5px 0;
+    color: #555;
+    line-height: 1.4;
+}
+
+.flight p {
+    margin: 5px 0;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* Pagination */
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination a {
+    text-decoration: none;
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: 1px solid #ddd;
+    color: #007bff;
+    border-radius: 3px;
+}
+
+.pagination a:hover {
+    background: #007bff;
+    color: #fff;
+}
+
+.pagination .current {
+    font-weight: bold;
+    color: black;
+    border-color: #007bff;
+}
+
+
+/* Default styles for all pages */
+body.default {
+    font-family: Arial, sans-serif;
+    background-color: #000000;
+    color: white;
+}
+
+/* Styles specific to the flight listing page */
+body.flight-list-page {
+    background-color: #000000;
+    color: white;
+}
+
+body.flight-list-page header {
+    background-color: #00796b;
+    color: #fff;
+}
+
+/* Styles specific to the flight detail page */
+body.flight-detail-page {
+    background-color: #ffecb3;
+    color: #444;
+}
+
+body.flight-detail-page h1 {
+    color: #fdfdfd;
+}
+
+body.flight-detail-page a {
+    color: #1e88e5;
+    text-decoration: none;
+}
+
+body.flight-detail-page a:hover {
+    text-decoration: underline;
+}
+
+
+/* Flight images styles */
+.flight-images-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 20px 0;
+    gap: 40px;
+}
+
+.airport-image-container {
+    text-align: center;
+}
+
+.image-title {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.airport-image {
+    max-width: 500px; /* Limit the image width */
+    max-height: auto; /* Limit the image height */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+}
+
+
+.flight-images-container a {
+    text-decoration: none; /* Remove underline from the link */
+}
+
+.flight-images-container a:hover .airport-image {
+    transform: scale(1.05); /* Enlarge image slightly on hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.airport-image {
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+/* Set the background image */
+.background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://c4.wallpaperflare.com/wallpaper/682/248/50/sky-airplane-airline-airbus-wallpaper-preview.jpg');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+
+/* Make the content container slightly transparent */
+.content-container {
+    background-color: rgba(255, 255, 255, 0.85); /* White with slight transparency */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 1200px;
+    margin: 20px auto; /* Center the box */
+}
+
+
+
+/* Filter form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+form label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+form select,
+form input[type="text"],
+form button {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+form button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+
+/* Button styling */
+.button {
+    display: inline-block;
+    padding: 5px 5px;
+    /* margin: 10px 5px; */
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.button:active {
+    background-color: #003f7f;
+    transform: scale(0.95);
+}
+
+
+
+/* Shopping Cart Page Styling */
+.shopping-cart-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.shopping-cart-container h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-item-details {
+    display: flex;
+    flex-direction: column;
+    max-width: 70%;
+}
+
+.cart-item-details h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #555;
+}
+
+.cart-item-details p {
+    margin: 5px 0;
+    color: #777;
+}
+
+.cart-item-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.cart-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.cart-footer .total-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.cart-footer .button {
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.cart-footer .button:hover {
+    background-color: #0056b3;
+}
+
+.cart-footer .button:active {
+    background-color: #003f7f;
+}
+
+
+/* Create Cart Page Styling */
+.create-cart-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.create-cart-container h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.create-cart-container p {
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 30px;
+}
+
+.create-cart-container .button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.create-cart-container .button:hover {
+    background-color: #0056b3;
+}
+
+.create-cart-container .button:active {
+    background-color: #003f7f;
+}
+
+
+/* Airport list styles */
+.airport-list-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.airport-list-title {
+    font-size: 2rem;
+    color: #007bff;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.airport-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.airport-item {
+    margin: 10px 0;
+    font-size: 1.2rem;
+}
+
+.airport-link {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+.airport-link:hover {
+    text-decoration: underline;
+}
+
+/* Airport detail styles */
+.airport-detail-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.airport-detail-title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.airport-detail-image img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.airport-detail-image p {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+}
+
+.departingArrive-flight-item {
+    text-align: center;
+}
+
+
+
+/* Navigation Bar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff;
+    color: #fff;
+    padding: 20px 50px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-left,
+.navbar-center,
+.navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-left {
+    justify-content: flex-start;
+}
+
+.navbar-center {
+    justify-content: center;
+    flex-grow: 1;
+    margin: auto;
+    text-align: center;
+}
+
+.navbar-right {
+    justify-content: flex-end;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #ffdd57;
+}
+
+.nav-text {
+    font-size: 1rem;
+    color: #fff;
+}
+
+.navbar-end {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff;
+    color: #fff;
+    padding: 5px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    top: 0;
+    z-index: 1000;
+}
+
+
+/* Checkout styles */
+.flight-result {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+}
+.flight-result h3 {
+    color: #007bff;
+}
+.flight-result a {
+    text-decoration: none;
+    color: white;
+    background-color: #007bff;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+.flight-result a:hover {
+    background-color: #0056b3;
+}
