@@ -1,0 +1,82 @@
+<!-- flights/templates/flights/airport_detail.html -->
+<!-- Author: Kevin Tan (ktan03@bu.edu)
+Description: Detailed view for an airport object.
+-->
+
+{% extends "flights/base.html" %}
+
+{% block content %}
+<!-- 
+This template displays detailed information about a specific airport, including its name, location, image, 
+amenities, average security time, and lists of flights departing from and arriving at the airport. 
+It is designed to provide users with a comprehensive view of an airport and its associated flights.
+-->
+
+<!-- Display the airport's name and code -->
+<h1 class="airport-detail-title">{{ airport.name }} ({{ airport.code }})</h1>
+
+<!-- Display the airport's image if available -->
+<div class="airport-detail-image">
+    {% if airport.image_url %}
+    <!-- If the airport has an associated image URL, render the image -->
+    <img src="{{ airport.image_url }}" alt="{{ airport.name }}" />
+    {% else %}
+    <!-- If no image URL is available, display a placeholder message -->
+    <p>No image available for this airport.</p>
+    {% endif %}
+</div>
+
+<!-- Display the airport's location (city and country) -->
+<p class="airport-detail-location"><strong>City:</strong> {{ airport.city }}</p>
+<p class="airport-detail-country"><strong>Country:</strong> {{ airport.country }}</p>
+
+<!-- Display the airport's amenities -->
+<p class="airport-detail-amenities">
+    <strong>Amenities:</strong> {{ airport.amenities|default:"N/A" }} 
+    <!-- Use the `default` filter to handle cases where amenities are not provided -->
+</p>
+
+<!-- Display the average security time at the airport -->
+<p class="airport-detail-security">
+    <strong>Average Security Time:</strong> {{ airport.avg_security_time }} 
+    <!-- The average security time is stored as a duration -->
+</p>
+
+<!-- Section for departing flights -->
+<h2 class="departing-flights-title">Departing Flights</h2>
+{% for flight in departing_flights %}
+<div class="departingArrive-flight-item">
+    <!-- Link to the flight detail page using the flight's primary key -->
+    <a href="{% url 'flight_detail' flight.pk %}" class="flight-link">
+        {{ flight.flight_number }}: {{ flight.departure_airport.name }} to {{ flight.arrival_airport.name }}
+    </a>
+    <!-- Display the flight's departure time formatted as a readable date -->
+    - Departure: {{ flight.departure_time|date:"F j, Y, g:i a" }}
+</div>
+{% empty %}
+<!-- Message displayed when there are no departing flights -->
+<div class="departingArrive-flight-item">
+    <p class="no-flights-message">No departing flights available.</p>
+</div>
+{% endfor %}
+
+<!-- Section for arriving flights -->
+<h2 class="departing-flights-title">Arriving Flights</h2>
+{% for flight in arriving_fligths %}
+<div class="departingArrive-flight-item">
+    <!-- Link to the flight detail page using the flight's primary key -->
+    <a href="{% url 'flight_detail' flight.pk %}" class="flight-link">
+        {{ flight.flight_number }}: {{ flight.departure_airport.name }} to {{ flight.arrival_airport.name }}
+    </a>
+    <!-- Display the flight's arrival time formatted as a readable date -->
+    - Arriving: {{ flight.arrival_time|date:"F j, Y, g:i a" }}
+</div>
+{% empty %}
+<!-- Message displayed when there are no arriving flights -->
+<div class="departingArrive-flight-item">
+    <p class="no-flights-message">No arriving flights available.</p>
+</div>
+{% endfor %}
+
+{% endblock %}
+

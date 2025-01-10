@@ -1,0 +1,74 @@
+<!-- templates/flights/base.html -->
+<!-- Author: Kevin Tan (ktan03@bu.edu)
+Description: Base template for all the html.
+-->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Flight App{% endblock %}</title>
+    <!-- Link to the external CSS file using Django's static template tag -->
+    <link rel="stylesheet" href="{% static 'flightStyles.css' %}">
+</head>
+<body>
+    <!-- Background image for the webpage -->
+    <div class="background-image">
+        <img
+            src="https://c4.wallpaperflare.com/wallpaper/682/248/50/sky-airplane-airline-airbus-wallpaper-preview.jpg"
+            alt="Background Image"
+            class="background-image">
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <!-- Left section of the navigation bar -->
+        <div class="navbar-left">
+            <a href="{% url 'all_flights' %}" class="nav-link">Home</a>
+        </div>
+
+        <!-- Center section of the navigation bar -->
+        <div class="navbar-center">
+            {% if user.is_authenticated %}
+                <span class="nav-text">Welcome, {{ user.username }}!</span>
+            {% endif %}
+        </div>
+
+        <!-- Right section of the navigation bar -->
+        <div class="navbar-right">
+            {% if user.is_authenticated %}
+                <div class="nav-links">
+                    <a href="{% url 'airport_list' %}" class="nav-link">View All Airports</a>
+                    <a href="#" class="nav-link" onclick="document.getElementById('logout-form').submit();">Logout</a>
+                    <form id="logout-form" method="POST" action="{% url 'logout' %}" style="display: none;">
+                        {% csrf_token %}
+                    </form>
+                </div>
+            {% else %}
+                <!-- Login link for unauthenticated users -->
+                <a href="{% url 'login' %}" class="nav-link">Login</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- Main content container -->
+    <div class="content-container">
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="navbar-end">
+            <!-- Footer text displaying app -->
+            <p>&copy; Kevin Tan Flight App</p>
+        </div>
+    </footer>
+</body>
+</html>
+
+

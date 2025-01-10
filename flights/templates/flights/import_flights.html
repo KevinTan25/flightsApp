@@ -1,0 +1,64 @@
+<!-- flights/templates/flights/import_flights.html -->
+<!-- Author: Kevin Tan (ktan03@bu.edu)
+Description: Form to import new flights.
+-->
+
+{% extends "flights/base.html" %}
+
+{% block content %}
+<!-- 
+    Import Flights Template
+    This template allows users to import flight data by selecting a departure airport, arrival airport, 
+    and an outbound date. It provides dropdown menus for airport selection and a date input field for the flight date.
+-->
+
+<h1>Import Flights</h1>
+
+<a href="{% url 'all_flights' %}" class="button">Back to All Flights</a>
+
+<!-- Form for importing flight data -->
+<form method="POST">
+    {% csrf_token %}
+
+    <!-- Dropdown menu to select the departure airport -->
+    <h3>Departure Airport</h3>
+    <label for="departure_id">Select Departure Airport:</label>
+    <select id="departure_id" name="departure_id" required>
+        <!-- Placeholder option to prompt the user -->
+        <option value="" disabled selected>Select an airport</option>
+        {% for airport in airports %}
+            <!-- Populate dropdown with airports from the database -->
+            <option value="{{ airport.code }}">{{ airport.name }} ({{ airport.city }}, {{ airport.country }})</option>
+        {% endfor %}
+    </select><br>
+
+    <!-- Dropdown menu to select the arrival airport -->
+    <h3>Arrival Airport</h3>
+    <label for="arrival_id">Select Arrival Airport:</label>
+    <select id="arrival_id" name="arrival_id" required>
+        <!-- Placeholder option to prompt the user -->
+        <option value="" disabled selected>Select an airport</option>
+        {% for airport in airports %}
+            <!-- Populate dropdown with airports from the database -->
+            <option value="{{ airport.code }}">{{ airport.name }} ({{ airport.city }}, {{ airport.country }})</option>
+        {% endfor %}
+    </select><br>
+
+    <!-- Date input field for the outbound flight -->
+    <h3>Flight Dates</h3>
+    <label for="outbound_date">Outbound Date:</label>
+    <input type="date" id="outbound_date" name="outbound_date" required><br>
+
+    <button type="submit">Import Flights</button>
+</form>
+
+<!-- Section to display any messages (e.g., success or error) returned by the view -->
+{% if messages %}
+    <ul>
+        {% for message in messages %}
+            <li style="color: red;">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% endblock %}

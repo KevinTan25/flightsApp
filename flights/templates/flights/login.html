@@ -1,0 +1,37 @@
+<!-- flights/templates/flights/login.html -->
+<!-- Author: Kevin Tan (ktan03@bu.edu)
+Description: Login webpage.
+-->
+
+{% extends 'flights/base.html' %}
+
+{% block content %}
+<!-- 
+    Login Template
+    This template displays a login form for users to authenticate themselves.
+-->
+
+<h2>Login</h2>
+
+<!-- Form for user login -->
+<form method="POST">
+    {% csrf_token %}
+    {{ form }}
+
+    <br>
+
+    <button type="submit" class="button">Login</button>
+
+    <!-- Hidden input field to determine the redirect destination after login -->
+    {% if request.GET.next %}
+        <!-- Redirect to the page user was trying to access before being redirected to login -->
+        <input type="hidden" name="next" value="{{ request.GET.next }}">
+    {% else %}
+        <!-- Default redirect to the 'all_flights' page if no specific destination is specified -->
+        <input type="hidden" name="next" value="{% url 'all_flights' %}">
+    {% endif %}
+</form>
+
+<!-- Link for users to register if they don't have an account -->
+<p>Don't have an account? <a href="{% url 'register' %}" class="button">Register here</a></p>
+{% endblock %}

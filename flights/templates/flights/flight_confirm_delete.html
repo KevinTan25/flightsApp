@@ -1,0 +1,26 @@
+<!-- flights/templates/flights/flight_confirm_delete.html -->
+<!-- Author: Kevin Tan (ktan03@bu.edu)
+Description: Confirm or Deny for Flight deletion.
+-->
+
+{% extends "flights/base.html" %}
+
+{% block content %}
+<!-- 
+    Template for confirming the deletion of a flight.
+    This page prompts the user to confirm their decision to delete a specific flight.
+-->
+
+<h1>Delete Flight</h1>
+
+<p>Are you sure you want to delete the flight "{{ object.flight_number }}"?</p>
+
+<!-- Form to confirm the deletion of the flight -->
+<form method="post">
+    {% csrf_token %}
+    <!-- Submit button to confirm deletion -->
+    <button type="submit" class="button">Yes, Delete</button>
+    <br>
+    <a href="{% url 'all_flights' %}" class="button">Cancel</a>
+</form>
+{% endblock %}

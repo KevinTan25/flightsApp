@@ -1,0 +1,122 @@
+<!-- flights/templates/flights/show_all_flights.html -->
+<!-- Author: Kevin Tan (ktan03@bu.edu)
+Description: Displays a list of flights.
+-->
+
+{% extends "flights/base.html" %}
+{% load static %}
+
+{% block title %}
+    All Flights
+{% endblock %}
+
+<!-- Display a list of all the flights imported into the the models. 
+     Filtering through Airports and flight number. 
+     Pagniation-->
+
+{% block content %}
+<!-- Container for the entire flights page -->
+<div class="container">
+    <!-- Page Header -->
+    <h1>All Flights</h1>
+
+    <!-- Shopping Cart Options for Authenticated Users -->
+    {% if user.is_authenticated %}
+        {% if has_cart %}
+            <!-- Link to view the user's shopping cart if it exists -->
+            <a href="{% url 'shopping_cart' %}" class="button">View Shopping Cart</a>
+            <br>
+        {% else %}
+            <!-- Link to create a new shopping cart if the user doesn't have one -->
+            <a href="{% url 'create_cart' %}" class="button">Create Shopping Cart</a>
+            <br>
+        {% endif %}
+
+        <!-- Option to import/create new flights -->
+        <a href="{% url 'import-flights' %}" class="button">Create New Flights</a>
+    {% endif %}
+
+    <!-- Flight Filter Form -->
+    <form method="get" action="">
+        <!-- Filter by Departure Airport -->
+        <label for="departure_airport">Departure Airport:</label>
+        <select name="departure_airport" id="departure_airport">
+            <!-- Default option for all airports -->
+            <option value="all" {% if selected_departure_airport == "all" %}selected{% endif %}>All Airports</option>
+            {% for airport in airports %}
+            <!-- Populate options dynamically with the list of airports -->
+            <option value="{{ airport.id }}" {% if airport.id|stringformat:"s" == selected_departure_airport %}selected{% endif %}>
+                {{ airport.name }} ({{ airport.code }})
+            </option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <!-- Filter by Arrival Airport -->
+        <label for="arrival_airport">Arrival Airport:</label>
+        <select name="arrival_airport" id="arrival_airport">
+            <!-- Default option for all airports -->
+            <option value="all" {% if selected_arrival_airport == "all" %}selected{% endif %}>All Airports</option>
+            {% for airport in airports %}
+            <!-- Populate options dynamically with the list of airports -->
+            <option value="{{ airport.id }}" {% if airport.id|stringformat:"s" == selected_arrival_airport %}selected{% endif %}>
+                {{ airport.name }} ({{ airport.code }})
+            </option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <!-- Search Flights by Flight Number -->
+        <label for="search">Search Flights:</label>
+        <input 
+            type="text" 
+            id="search" 
+            name="q" 
+            placeholder="Search by flight number" 
+            value="{{ search_query }}" 
+        />
+        <br>
+        <!-- Submit button to apply filters -->
+        <button type="submit">Filter</button>
+    </form>
+
+    <!-- Display Flights -->
+    {% for flight in flights %}
+    <div class="flight">
+        <!-- Display basic flight details -->
+        <h3>{{ flight.flight_number }}</h3>
+        <p><strong>From:</strong> {{ flight.departure_airport.name }} ({{ flight.departure_airport.code }})</p>
+        <p><strong>To:</strong> {{ flight.arrival_airport.name }} ({{ flight.arrival_airport.code }})</p>
+        <p><strong>Departure Time:</strong> {{ flight.departure_time }}</p>
+        <p><strong>Arrival Time:</strong> {{ flight.arrival_time }}</p>
+        <p><strong>Cost:</strong> ${{ flight.cost }}</p>
+        <!-- Link to view detailed flight information -->
+        <p><a href="{% url 'flight_detail' flight.pk %}" class="button">View Details</a></p>
+    </div>
+    {% empty %}
+    <!-- Message displayed if no flights match the search criteria -->
+    <br>
+    <td colspan="5">No flights found matching your search criteria.</td>
+    {% endfor %}
+
+    <!-- Pagination Section -->
+    <div class="pagination">
+        {% if is_paginated %}
+            <!-- Link to the first and previous page if applicable -->
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; First</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+
+            <!-- Display current page number and total pages -->
+            <span class="current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+            <!-- Link to the next and last page if applicable -->
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

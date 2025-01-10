@@ -1,0 +1,28 @@
+<!-- flights/templates/flights/register.html -->
+ <!-- Author: Kevin Tan (ktan03@bu.edu)
+Description: Register an account for the flight app.
+-->
+
+{% extends 'flights/base.html' %}
+{% block content %}
+<!-- 
+    Registration Template
+    This template provides a registration form for new users to create an account.
+    The form uses Django's built-in user registration system and handles CSRF protection.
+-->
+
+<h2>Register</h2>
+
+<!-- Registration form -->
+<form class="site-form" action="{% url 'register' %}" method="post">
+    {% csrf_token %}
+
+    <!-- Render the registration form as a table for alignment and structure -->
+    <table>
+        {{ form.as_table }}
+    </table>
+
+    <!-- Submit button for the registration form -->
+    <input type="submit" name="register" value="Register" class="button">
+</form>
+{% endblock %}

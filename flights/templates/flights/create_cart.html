@@ -1,0 +1,28 @@
+<!-- flights/templates/flights/create_cart.html -->
+<!-- Author: Kevin Tan (ktan03@bu.edu)
+Description: Create a cart using CreateView from views.
+-->
+
+{% extends 'flights/base.html' %}
+
+{% block content %}
+<!-- 
+    Template for creating a new shopping cart.
+    This page is displayed when a user doesn't have an existing shopping cart. 
+    It allows them to create one by submitting a form.
+-->
+
+<div class="create-cart-container">
+    <!-- Title for the create shopping cart page -->
+    <h2>Create Shopping Cart</h2>
+    
+    <!-- Inform the user that they don't have a shopping cart yet -->
+    <p>You don't have a shopping cart yet. Click below to create one!</p>
+    
+    <!-- Form to create a new shopping cart -->
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="button">Create Cart</button>
+    </form>
+</div>
+{% endblock %}

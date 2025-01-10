@@ -1,0 +1,46 @@
+<!-- flights/templates/flights/checkout.html -->
+<!-- Author: Kevin Tan (ktan03@bu.edu)
+Description: Checkout page for shopping carts
+-->
+
+{% extends "flights/base.html" %}
+
+{% block content %}
+<!-- 
+    This template displays the checkout process for flights in the user's shopping cart.
+-->
+
+<h1>Checkout Flights</h1>
+
+<!-- Iterate through the results fetched from API -->
+{% for result in serpapi_results %}
+    {% if result.error %}
+        <p>Error fetching flight details: {{ result.error }}</p>
+    {% else %}
+        <div class="flight-result">
+            <h3>Best Flights To Your Checkout</h3>
+
+            <!-- Iterate through the best flights in the result -->
+            {% for flight in result.best_flights %}
+                <p>
+                    <!-- Display flight details such as flight number, departure, arrival, duration, and price -->
+                    Flight Number: {{ flight.flights.0.flight_number }}<br>
+                    Departure: {{ flight.flights.0.departure_airport.name }}<br>
+                    Arrival: {{ flight.last_arrival_airport }}<br>
+                    Duration: {{ flight.total_duration }} mins<br>
+                    Price: ${{ flight.price }}
+                </p>
+                <!-- Link to buy the flight on Google Flights -->
+                <a href="{{ result.search_metadata.google_flights_url }}" class="button" target="_blank">
+                    Buy Flight
+                </a>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <!-- If there are no results in the cart, display a message -->
+    {% empty %}
+    <p>Nothing in cart.</p>
+{% endfor %}
+
+<a href="{% url 'shopping_cart' %}" class="button">Back to Cart</a>
+{% endblock %}

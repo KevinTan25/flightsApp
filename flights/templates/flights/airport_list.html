@@ -1,0 +1,33 @@
+<!-- flights/templates/flights/airport_list.html -->
+<!-- Author: Kevin Tan (ktan03@bu.edu)
+Description: List for all the airports.
+-->
+
+{% extends "flights/base.html" %}
+
+{% block content %}
+<!-- 
+This template is used to display a list of all airports. Each airport is shown with its name, code, city, 
+and country. The airport names are clickable links that lead to a detailed page for the selected airport.
+-->
+
+<div class="airport-list-container">
+    <h1 class="airport-list-title">Airports</h1>
+    
+    <!-- Unordered list to display the airports -->
+    <ul class="airport-list">
+        {% for airport in airports %}
+        <!-- Iterate through the list of airports passed in the context -->
+        <li class="airport-item">
+            <!-- Link to the airport detail page using the airport's primary key -->
+            <a href="{% url 'airport_detail' airport.pk %}" class="airport-link">
+                {{ airport.name }} ({{ airport.code }})
+            </a>
+            - 
+            <span class="airport-location">{{ airport.city }}, {{ airport.country }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+

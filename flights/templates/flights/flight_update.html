@@ -1,0 +1,29 @@
+<!-- flights/templates/flights/flight_update.html -->
+<!-- Author: Kevin Tan (ktan03@bu.edu)
+Description: Update the details of a flight.
+-->
+
+{% extends "flights/base.html" %}
+
+{% block content %}
+<!-- 
+    Update Flight Template
+    This template allows users to update the details of an existing flight. 
+    It renders a form with the flight's current information and provides a submit button to save changes.
+-->
+
+<h1>Update Flight</h1>
+
+<!-- Form to update the flight details -->
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <!-- Button to submit the updated flight details -->
+    <button type="submit" class="button">Update Flight</button>
+</form>
+
+<!-- Button to cancel and return to the list of all flights -->
+<a href="{% url 'all_flights' %}" class="button">Cancel</a>
+{% endblock %}
+

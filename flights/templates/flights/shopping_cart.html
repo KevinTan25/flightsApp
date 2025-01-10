@@ -1,0 +1,61 @@
+<!-- flights/templates/flights/shopping_cart.html -->
+<!-- Author: Kevin Tan (ktan03@bu.edu)
+Description: Displays a list of flights in your shopping cart.
+-->
+
+{% extends 'flights/base.html' %}
+{% block content %}
+<!-- 
+    Shopping Cart Template
+    Displays the user's shopping cart, including details of flights added to the cart, 
+    total price, and options to delete the cart or proceed to checkout.
+-->
+
+<div class="shopping-cart-container">
+    <!-- Shopping Cart Header -->
+    <h1>Your Shopping Cart</h1>
+
+    {% if cart_flights %}
+        <!-- Section for flights in the cart -->
+        <h2>Flights in Cart</h2>
+        {% for flight in cart_flights %}
+            <!-- Display details for each flight in the cart -->
+            <div class="cart-item">
+                <div class="cart-item-details">
+                    <h3>Flight Number: {{ flight.flight.flight_number }}</h3>
+                    <p>From: {{ flight.flight.departure_airport.name }}</p>
+                    <p>To: {{ flight.flight.arrival_airport.name }}</p>
+                </div>
+        
+                <!-- Price information for the flight -->
+                <div class="cart-item-price"><p><strong>Cost:</strong> ${{ flight.flight.cost }}</p></div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <!-- Message displayed if no flights are in the cart -->
+        <p>No flights in your cart.</p>
+    {% endif %}
+
+
+    <!-- Footer section of the cart -->
+    <div class="cart-footer">
+        <!-- Display the total price of all flights in the cart -->
+        <div class="total-price">
+            <h3>Total Price: ${{ total_price }}</h3>
+        </div>
+
+        <!-- Form to delete the entire shopping cart -->
+        <form method="post" action="{% url 'delete_cart' %}">
+            {% csrf_token %}
+            <button type="submit">Delete Cart</button>
+        </form>
+
+        <!-- Navigation button to view all available flights -->
+        <a href="{% url 'all_flights' %}" class="button">Back to All Flights</a>
+    </div>
+
+    <!-- Button to proceed to the checkout page -->
+    <a href="{% url 'checkout' %}" class="button">Checkout</a>
+</div>
+{% endblock %}
+
